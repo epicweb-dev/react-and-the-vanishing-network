@@ -60,13 +60,14 @@ app.use(
 // 	'/*',
 // 	serveStatic({
 // 		root: './public',
-// 		index: '',
-// 		onNotFound: async (path, c) => {
-// 			const html = await readFile('./public/index.html', 'utf8')
-// 			return context.html(html, 200)
-// 		},
+// 		index: 'index.html',
 // 	}),
 // )
+//
+// app.get('*', async (c) => {
+// 	const html = await fs.readFile('./public/index.html', 'utf8')
+// 	return c.html(html, 200)
+// })
 
 const server = serve({ fetch: app.fetch, port: PORT }, (info) => {
 	console.log(`Server is running on http://localhost:${info.port}`)
