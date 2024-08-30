@@ -1,8 +1,10 @@
-import { resolve, load as reactLoad } from 'react-server-dom-esm/node-loader'
-
-export { resolve }
+import {
+	resolve as reactResolve,
+	load as reactLoad,
+} from 'react-server-dom-esm/node-loader'
 
 async function textLoad(url, context, defaultLoad) {
+	// console.log('loading text', url)
 	const result = await defaultLoad(url, context, defaultLoad)
 	if (result.format === 'module') {
 		if (typeof result.source === 'string') {
@@ -21,4 +23,14 @@ export async function load(url, context, defaultLoad) {
 		return textLoad(u, c, defaultLoad)
 	})
 	return result
+}
+
+export async function resolve(specifier, context, defaultResolve) {
+	const { conditions = [] } = context
+	const newContext = {
+		...context,
+		conditions: ['react-server', ...conditions],
+	}
+
+	return reactResolve(specifier, newContext, defaultResolve)
 }

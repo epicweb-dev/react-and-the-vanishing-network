@@ -8,7 +8,7 @@ import {
 	useState,
 	useTransition,
 } from 'react'
-import { createRoot } from 'react-dom/client'
+import { hydrateRoot } from 'react-dom/client'
 import * as RSC from 'react-server-dom-esm/client'
 
 function updateContentPromise() {
@@ -58,11 +58,9 @@ function Root() {
 		}
 	}, [])
 
-	return h(use(contentPromise).root)
+	return use(contentPromise).root
 }
 
 startTransition(() => {
-	createRoot(document.getElementById('root')).render(
-		h(Suspense, { fallback: 'loading...' }, h(Root)),
-	)
+	hydrateRoot(document.getElementById('root'), h(Root))
 })

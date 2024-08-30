@@ -36,12 +36,6 @@ export function Router({ children, initialLoaderData }) {
 	)
 }
 
-export function Route({ children, path }) {
-	const { loaderData } = useRouter()
-	const routeData = loaderData[path] || {}
-	return h('div', null, children(routeData))
-}
-
 export function useRouter() {
 	const context = useContext(RouterContext)
 	if (!context) {
