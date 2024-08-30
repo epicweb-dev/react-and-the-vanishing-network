@@ -1,12 +1,12 @@
 {
-  "name": "exercises__sep__05.actions__sep__05.solution.history-revalidation",
+  "name": "exercises_01.steps_05.solution.rsc",
   "version": "1.0.0",
   "type": "module",
   "private": true,
   "description": "Super simple implementation of RSCs with minimal deps",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch ./index.js"
+    "dev": "node --watch ./index.js/index.js"
   },
   "keywords": [],
   "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",

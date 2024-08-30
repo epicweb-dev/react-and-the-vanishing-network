@@ -1,11 +1,11 @@
 {
-  "name": "exercises_01.steps_04.solution.pespa",
+  "name": "exercises_01.steps_04.solution.react-19",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node . --watch",
-    "start": "node ."
+    "dev": "node --watch ./index.js",
+    "start": "node ./index.js"
   },
   "keywords": [],
   "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",

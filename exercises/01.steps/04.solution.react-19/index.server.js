@@ -6,7 +6,7 @@ export function loader() {
 
 export async function action({ request }) {
 	const formData = await request.formData()
-	const change = parseInt(formData.get('change'), 10)
+	const change = Number(formData.get('change'))
 	if (!isNaN(change)) {
 		count += change
 	}

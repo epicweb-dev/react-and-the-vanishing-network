@@ -4,7 +4,6 @@ import {
 } from 'react-server-dom-esm/node-loader'
 
 async function textLoad(url, context, defaultLoad) {
-	// console.log('loading text', url)
 	const result = await defaultLoad(url, context, defaultLoad)
 	if (result.format === 'module') {
 		if (typeof result.source === 'string') {

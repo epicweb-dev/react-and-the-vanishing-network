@@ -16,7 +16,8 @@ export function Router({ children, initialLoaderData }) {
 	const revalidate = useCallback(async () => {
 		try {
 			const url = new URL(window.location)
-			const response = await fetch(`/${url.pathname}.data${url.search}`)
+			console.log(`${url.pathname}.data${url.search}`)
+			const response = await fetch(`${url.pathname}.data${url.search}`)
 			if (response.ok) {
 				const newData = await response.json()
 				setLoaderData(newData)

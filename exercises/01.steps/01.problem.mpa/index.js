@@ -8,7 +8,7 @@ const PORT = Number(process.env.PORT ?? 3000)
 const app = new Hono({ strict: true })
 
 app.get('/', async (c) => {
-	const count = await db.getCount()
+	// 🐨 get the count from the database with db.getCount()
 	const html = `
 		<!DOCTYPE html>
 		<html lang="en">
@@ -18,23 +18,20 @@ app.get('/', async (c) => {
 			<title>MPA Counter</title>
 		</head>
 		<body>
-			<h1>Count: ${count}</h1>
-			<form action="/update-count" method="POST">
-				<button type="submit" name="change" value="-1">Decrement</button>
-				<button type="submit" name="change" value="1">Increment</button>
-			</form>
+			<!-- 🐨 render the count here -->
+			<!-- 🐨 render the form here with the action set to /update-count and method POST -->
+			<!-- 🐨 render two buttons here, one for incrementing and one for decrementing the count (use the name "change" and value of -1 or 1) -->
 		</body>
 		</html>
 	`
 	return c.html(html)
 })
 
-app.post('/update-count', async (c) => {
-	const formData = await c.req.formData()
-	const change = Number(formData.get('change'))
-	await db.changeCount(change)
-	return c.redirect('/')
-})
+// 🐨 add a POST route for /update-count
+// 🐨 get the form data from the request
+// 🐨 get the change value from the form data
+// 🐨 change the count with db.changeCount(change)
+// 🐨 redirect to '/' (POST -> REDIRECT -> GET)
 
 const server = serve({ fetch: app.fetch, port: PORT }, (info) => {
 	console.log(`Server is running on http://localhost:${info.port}`)

@@ -1,4 +1,5 @@
 import { serve } from '@hono/node-server'
+import { serveStatic } from '@hono/node-server/serve-static'
 import closeWithGrace from 'close-with-grace'
 import { Hono } from 'hono'
 import * as db from './db.js'
@@ -18,8 +19,8 @@ app.get('/', async (c) => {
 			<title>PEMPA Counter</title>
 		</head>
 		<body>
-			<h1>Count: <span id="count">${count}</span></h1>
-			<form id="update-form">
+			<h1 id="count">Count: ${count}</h1>
+			<form id="counter-form" method="POST" action="/update-count">
 				<button type="submit" name="change" value="-1">Decrement</button>
 				<button type="submit" name="change" value="1">Increment</button>
 			</form>
@@ -32,12 +33,8 @@ app.get('/', async (c) => {
 
 app.post('/update-count', async (c) => {
 	const formData = await c.req.formData()
-	const change = parseInt(formData.get('change'), 10)
-	if (!isNaN(change)) {
-		const currentCount = await db.getCount()
-		const newCount = currentCount + change
-		await db.setCount(newCount)
-	}
+	const change = Number(formData.get('change'))
+	await db.changeCount(change)
 
 	if (c.req.header('Accept')?.includes('text/html')) {
 		return c.redirect('/')
@@ -52,13 +49,6 @@ app.use(
 	serveStatic({
 		root: './ui',
 		rewriteRequestPath: (path) => path.replace('/ui', ''),
-	}),
-)
-
-app.use(
-	'/*',
-	serveStatic({
-		root: './public',
 	}),
 )
 

@@ -9,10 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			formData.append(event.submitter.name, event.submitter.value)
 		}
 
-		const actionUrl = form.getAttribute('action')
-		const method = form.getAttribute('method')
-		const response = await fetch(actionUrl, {
-			method: method,
+		const response = await fetch(form.action, {
+			method: form.method,
 			body: formData,
 		})
 		if (response.ok) {

@@ -1,4 +1,5 @@
 import { serve } from '@hono/node-server'
+import { serveStatic } from '@hono/node-server/serve-static'
 import closeWithGrace from 'close-with-grace'
 import { Hono } from 'hono'
 import * as db from './db.js'
@@ -7,6 +8,8 @@ const PORT = Number(process.env.PORT ?? 3000)
 
 const app = new Hono({ strict: true })
 
+// 🐨 remove this in favor of a /count API endpoint that returns the count as JSON
+// 💰 most of this HTML was moved to the public/index.html file
 app.get('/', async (c) => {
 	const count = await db.getCount()
 	const html = `
@@ -15,14 +18,15 @@ app.get('/', async (c) => {
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title>MPA Counter</title>
+			<title>PEMPA Counter</title>
 		</head>
 		<body>
-			<h1>Count: ${count}</h1>
-			<form action="/update-count" method="POST">
+			<h1 id="count">Count: ${count}</h1>
+			<form id="counter-form" method="POST" action="/update-count">
 				<button type="submit" name="change" value="-1">Decrement</button>
 				<button type="submit" name="change" value="1">Increment</button>
 			</form>
+			<script src="/ui/index.js" type="module"></script>
 		</body>
 		</html>
 	`
@@ -33,8 +37,36 @@ app.post('/update-count', async (c) => {
 	const formData = await c.req.formData()
 	const change = Number(formData.get('change'))
 	await db.changeCount(change)
-	return c.redirect('/')
+
+	// 🐨 this is now a JSON-only API so you can remove the progressive enhancement 😱
+	if (c.req.header('Accept')?.includes('text/html')) {
+		return c.redirect('/')
+	} else {
+		const updatedCount = await db.getCount()
+		return c.json({ count: updatedCount })
+	}
 })
+
+app.use(
+	'/ui/*',
+	serveStatic({
+		root: './ui',
+		rewriteRequestPath: (path) => path.replace('/ui', ''),
+	}),
+)
+
+// 💰 we need to serve the public/index.html file for all requests
+// app.use(
+// 	'/*',
+// 	serveStatic({
+// 		root: './public',
+// 		index: '',
+// 		onNotFound: async (path, c) => {
+// 			const html = await readFile('./public/index.html', 'utf8')
+// 			return context.html(html, 200)
+// 		},
+// 	}),
+// )
 
 const server = serve({ fetch: app.fetch, port: PORT }, (info) => {
 	console.log(`Server is running on http://localhost:${info.port}`)

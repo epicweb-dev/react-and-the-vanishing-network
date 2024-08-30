@@ -4,6 +4,6 @@ export async function getCount() {
 	return count
 }
 
-export async function setCount(newCount) {
-	count = newCount
+export async function changeCount(change) {
+	count += change
 }

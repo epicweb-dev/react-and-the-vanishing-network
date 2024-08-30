@@ -15,12 +15,8 @@ app.get('/count', async (c) => {
 
 app.post('/update-count', async (c) => {
 	const formData = await c.req.formData()
-	const change = parseInt(formData.get('change'), 10)
-	if (!isNaN(change)) {
-		const currentCount = await db.getCount()
-		const newCount = currentCount + change
-		await db.setCount(newCount)
-	}
+	const change = Number(formData.get('change'))
+	await db.changeCount(change)
 	const updatedCount = await db.getCount()
 	return c.json({ count: updatedCount })
 })

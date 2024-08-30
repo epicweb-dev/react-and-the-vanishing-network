@@ -3,10 +3,10 @@ import { useRouter } from './router.js'
 
 function Form({ action, method = 'GET', children }) {
 	const { revalidate } = useRouter()
-	const formRef = useRef(null)
 
 	async function handleSubmit(event) {
 		event.preventDefault()
+		const form = event.currentTarget
 
 		const formData = new FormData(form)
 
@@ -15,9 +15,8 @@ function Form({ action, method = 'GET', children }) {
 		}
 		const url = new URL(window.location)
 
-		const actionUrl =
-			form.getAttribute('action') || `${url.pathname}${url.search}`
-		const method = form.getAttribute('method')
+		const actionUrl = form.action || `${url.pathname}${url.search}`
+		const method = form.method
 		const response = await fetch(actionUrl, {
 			method: method,
 			body: formData,
@@ -29,11 +28,7 @@ function Form({ action, method = 'GET', children }) {
 		}
 	}
 
-	return h(
-		'form',
-		{ ref: formRef, onSubmit: handleSubmit, action, method },
-		children,
-	)
+	return h('form', { onSubmit: handleSubmit, action, method }, children)
 }
 
 export { Form }
