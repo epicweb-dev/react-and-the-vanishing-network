@@ -60,12 +60,12 @@ export function Counter() {
 		}
 	}
 
-	if (state.loading) return h('div', null, 'Loading...')
+	if (state.loading && state.count === null) return h('div', null, 'Loading...')
 	if (state.error) return h('div', null, 'Error: ' + state.error)
 
 	return h(
 		'div',
-		null,
+		{ style: { opacity: state.loading ? 0.6 : 1 } },
 		h('h1', null, 'Count: ' + state.count),
 		h('button', { onClick: () => updateCount(-1) }, 'Decrement'),
 		h('button', { onClick: () => updateCount(1) }, 'Increment'),

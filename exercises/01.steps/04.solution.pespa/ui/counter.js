@@ -1,13 +1,15 @@
 import { createElement as h } from 'react'
-import { Form, useData } from './framework.js'
+import { useLoaderData, useFetcher } from './framework.js'
 
 export function Counter() {
-	const data = useData()
+	const data = useLoaderData()
+	const fetcher = useFetcher()
+
 	return h(
 		'div',
-		null,
+		{ style: { opacity: fetcher.isPending ? 0.6 : 1 } },
 		h(
-			Form,
+			fetcher.Form,
 			{ method: 'POST' },
 			h('h1', null, 'Count: ' + data.count),
 			h('button', { type: 'submit', name: 'change', value: '-1' }, 'Decrement'),
@@ -16,19 +18,16 @@ export function Counter() {
 	)
 }
 
-export const server =
-	typeof window === 'undefined'
-		? {
-				loader: async () => {
-					const db = await import('../db.js')
-					return { count: await db.getCount() }
-				},
-				action: async ({ request }) => {
-					const db = await import('../db.js')
-					const formData = await request.formData()
-					const change = Number(formData.get('change'))
-					await db.changeCount(change)
-					return { success: true }
-				},
-			}
-		: null
+export const server = {
+	loader: async () => {
+		const db = await import('../db.js')
+		return { count: await db.getCount() }
+	},
+	action: async ({ request }) => {
+		const db = await import('../db.js')
+		const formData = await request.formData()
+		const change = Number(formData.get('change'))
+		await db.changeCount(change)
+		return { success: true }
+	},
+}
