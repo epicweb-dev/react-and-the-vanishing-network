@@ -21,7 +21,7 @@ function counterReducer(state, action) {
 			return { ...state, loading: false, error: action.payload }
 		}
 		default: {
-			return state
+			throw new Error(`Invalid action type ${action.type}`)
 		}
 	}
 }

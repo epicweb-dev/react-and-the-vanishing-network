@@ -1,8 +1,9 @@
 import { createElement as h, useReducer, useEffect } from 'react'
 
-// 🐨 create the initial state with count, loading, and error
+// 🐨 create the initial state with count (null), loading, and error
 
-// 🐨 create the counterReducer for handling action types "FETCH_START", "FETCH_SUCCESS", "FETCH_ERROR", "UPDATE_START", "UPDATE_SUCCESS", "UPDATE_ERROR"
+// 🐨 create the counterReducer for handling action types "FETCH_START", "UPDATE_START", "FETCH_SUCCESS", "UPDATE_SUCCESS", "FETCH_ERROR", "UPDATE_ERROR"
+// 🦉 don't forget to handle an incorrect action type!
 
 export function Counter() {
 	// 🐨 use useReducer with the counterReducer and initialState
