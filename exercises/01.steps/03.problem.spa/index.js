@@ -34,6 +34,7 @@ app.get('/', async (c) => {
 })
 
 app.post('/update-count', async (c) => {
+	// 🐨 change this to use JSON body parsing
 	const formData = await c.req.formData()
 	const change = Number(formData.get('change'))
 	const updatedCount = await db.changeCount(change)

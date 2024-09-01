@@ -50,7 +50,8 @@ export function Counter() {
 		try {
 			const response = await fetch('/update-count', {
 				method: 'POST',
-				body: new URLSearchParams({ change: String(change) }),
+				body: JSON.stringify({ change }),
+				headers: { 'Content-Type': 'application/json' },
 			})
 			if (!response.ok) throw new Error('Failed to update count')
 			const { count } = await response.json()

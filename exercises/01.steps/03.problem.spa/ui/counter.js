@@ -21,7 +21,8 @@ export function Counter() {
 	}, [])
 
 	// 🐨 create an updateCount function that accepts a change to update the count on the server
-	// 🐨 the response includes the new count, which we should update the state with
+	// 🦉 make certain to send the change as a JSON body with a content-type of application/json
+	// 🐨 the JSON response includes the new count, which we should update the state with
 
 	// 🐨 if the state is loading and the count is null, return a loading message
 	// 🐨 if the state has an error, return an error message

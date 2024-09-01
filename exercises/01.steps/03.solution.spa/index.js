@@ -14,8 +14,8 @@ app.get('/count', async (c) => {
 })
 
 app.post('/update-count', async (c) => {
-	const formData = await c.req.formData()
-	const change = Number(formData.get('change'))
+	const body = await c.req.json()
+	const change = Number(body.change)
 	const updatedCount = await db.changeCount(change)
 	return c.json({ count: updatedCount })
 })

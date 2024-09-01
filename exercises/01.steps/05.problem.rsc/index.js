@@ -139,35 +139,53 @@ app.get('/', async (c) => {
 	)
 })
 
-app.post('/action', async (c) => {
+app.post('*', async (c) => {
 	const requestId = uuidv4()
 	const formData = await c.req.formData()
+	const serverReference = c.req.header('rsc-action')
+
 	const serializedFormData = await serializeFormData(formData)
-	return c.body(
-		new ReadableStream({
-			start(controller) {
-				requestHandlers.set(requestId, (message) => {
-					if (message.type === 'chunk') {
-						controller.enqueue(message.data)
-					} else if (message.type === 'end') {
-						controller.close()
-					}
-				})
-				worker.postMessage({
-					type: 'action',
-					requestId,
-					formData: serializedFormData,
-					serverReference: c.req.header('rsc-action'),
-				})
-			},
-			cancel() {
-				requestHandlers.delete(requestId)
-			},
-		}),
-	)
+
+	if (c.req.header('Accept').includes('text/html')) {
+		return new Promise((resolve) => {
+			requestHandlers.set(requestId, (message) => {
+				if (message.type === 'end') {
+					resolve(c.redirect('/'))
+				}
+			})
+			worker.postMessage({
+				type: 'action',
+				requestId,
+				formData: serializedFormData,
+				serverReference,
+			})
+		})
+	} else {
+		return c.body(
+			new ReadableStream({
+				start(controller) {
+					requestHandlers.set(requestId, (message) => {
+						if (message.type === 'chunk') {
+							controller.enqueue(message.data)
+						} else if (message.type === 'end') {
+							controller.close()
+						}
+					})
+					worker.postMessage({
+						type: 'action',
+						requestId,
+						formData: serializedFormData,
+						serverReference,
+					})
+				},
+				cancel() {
+					requestHandlers.delete(requestId)
+				},
+			}),
+		)
+	}
 })
 
-// Add this function at the end of the file
 async function serializeFormData(formData) {
 	const serialized = {}
 	for (const [key, value] of formData.entries()) {
