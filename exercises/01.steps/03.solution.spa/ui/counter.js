@@ -65,9 +65,13 @@ export function Counter() {
 
 	return h(
 		'div',
-		{ style: { opacity: state.loading ? 0.6 : 1 } },
+		null,
 		h('h1', null, 'Count: ' + state.count),
-		h('button', { onClick: () => updateCount(-1) }, 'Decrement'),
-		h('button', { onClick: () => updateCount(1) }, 'Increment'),
+		h(
+			'div',
+			{ style: { opacity: state.loading ? 0.6 : 1 } },
+			h('button', { onClick: () => updateCount(-1) }, 'Decrement'),
+			h('button', { onClick: () => updateCount(1) }, 'Increment'),
+		),
 	)
 }

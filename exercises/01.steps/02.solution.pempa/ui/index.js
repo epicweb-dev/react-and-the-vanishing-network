@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const form = document.getElementById('counter-form')
-	form.addEventListener('submit', async function (event) {
+
+	form.addEventListener('submit', async (event) => {
 		event.preventDefault()
 
 		const formData = new FormData(form)
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 		if (response.ok) {
 			const { count } = await response.json()
-			document.getElementById('count').innerText = 'Count: ' + count
+			document.getElementById('count').innerText = `Count: ${count}`
 		} else {
 			console.error('Failed to update the count')
 		}

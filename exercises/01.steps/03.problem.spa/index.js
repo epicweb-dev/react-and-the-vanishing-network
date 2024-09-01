@@ -36,13 +36,12 @@ app.get('/', async (c) => {
 app.post('/update-count', async (c) => {
 	const formData = await c.req.formData()
 	const change = Number(formData.get('change'))
-	await db.changeCount(change)
+	const updatedCount = await db.changeCount(change)
 
 	// 🐨 this is now a JSON-only API so you can remove the progressive enhancement 😱
 	if (c.req.header('Accept')?.includes('text/html')) {
 		return c.redirect('/')
 	} else {
-		const updatedCount = await db.getCount()
 		return c.json({ count: updatedCount })
 	}
 })

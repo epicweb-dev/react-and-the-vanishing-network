@@ -7,13 +7,25 @@ export function Counter() {
 
 	return h(
 		'div',
-		{ style: { opacity: fetcher.isPending ? 0.6 : 1 } },
+		null,
 		h(
 			fetcher.Form,
 			{ method: 'POST' },
 			h('h1', null, 'Count: ' + data.count),
-			h('button', { type: 'submit', name: 'change', value: '-1' }, 'Decrement'),
-			h('button', { type: 'submit', name: 'change', value: '1' }, 'Increment'),
+			h(
+				'div',
+				{ style: { opacity: fetcher.isPending ? 0.6 : 1 } },
+				h(
+					'button',
+					{ type: 'submit', name: 'change', value: '-1' },
+					'Decrement',
+				),
+				h(
+					'button',
+					{ type: 'submit', name: 'change', value: '1' },
+					'Increment',
+				),
+			),
 		),
 	)
 }

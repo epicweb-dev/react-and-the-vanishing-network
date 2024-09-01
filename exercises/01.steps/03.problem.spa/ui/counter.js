@@ -6,27 +6,34 @@ import { createElement as h, useReducer, useEffect } from 'react'
 
 export function Counter() {
 	// 🐨 use useReducer with the counterReducer and initialState
-	const [state, dispatch] = useReducer(counterReducer, initialState)
+	const state = {
+		count: 0,
+		loading: false,
+		error: null,
+	}
 
 	// 🐨 use useEffect to fetch the count on component mount
 
 	useEffect(() => {
-		// 🐨 create and call the fetchCount function to fetch the count from the server
+		// 🐨 create and call an async fetchCount function to fetch the count from the server
 		// 🦉 just ignore all the issues with race conditions etc. 🙄
-		// 🐨 call fetchCount
 	}, [])
 
 	// 🐨 create an updateCount function that accepts a change to update the count on the server
 	// 🐨 the response includes the new count, which we should update the state with
 
-	// 🐨 if the state is loading, return a loading message
+	// 🐨 if the state is loading and the count is null, return a loading message
 	// 🐨 if the state has an error, return an error message
 
 	return h(
 		'div',
-		{ style: { opacity: state.loading ? 0.6 : 1 } },
+		null,
 		h('h1', null, 'Count: ' + state.count),
-		h('button', { onClick: () => updateCount(-1) }, 'Decrement'),
-		h('button', { onClick: () => updateCount(1) }, 'Increment'),
+		h(
+			'div',
+			{ style: { opacity: state.loading ? 0.6 : 1 } },
+			h('button', { onClick: () => updateCount(-1) }, 'Decrement'),
+			h('button', { onClick: () => updateCount(1) }, 'Increment'),
+		),
 	)
 }

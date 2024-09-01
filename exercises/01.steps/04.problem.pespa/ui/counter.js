@@ -7,14 +7,26 @@ export function Counter() {
 	const data = { count: 'TODO' }
 	return h(
 		'div',
-		// 🐨 update this to use the fetcher.isPending property
-		{ style: { opacity: false ? 0.6 : 1 } },
+		null,
 		h(
 			'form', // 🐨 switch this to a fetcher.Form
 			{ method: 'POST' },
 			h('h1', null, 'Count: ' + data.count),
-			h('button', { type: 'submit', name: 'change', value: '-1' }, 'Decrement'),
-			h('button', { type: 'submit', name: 'change', value: '1' }, 'Increment'),
+			h(
+				'div',
+				// 🐨 update this to use the fetcher.isPending property
+				{ style: { opacity: false ? 0.6 : 1 } },
+				h(
+					'button',
+					{ type: 'submit', name: 'change', value: '-1' },
+					'Decrement',
+				),
+				h(
+					'button',
+					{ type: 'submit', name: 'change', value: '1' },
+					'Increment',
+				),
+			),
 		),
 	)
 }
