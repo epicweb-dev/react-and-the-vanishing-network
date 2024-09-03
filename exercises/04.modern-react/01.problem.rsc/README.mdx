@@ -1,1 +1,22 @@
 # RSC
+
+👨‍💼 Now we have a framework built with React Server Components!
+
+🧝‍♂️ <PrevDiffLink>You're welcome</PrevDiffLink> 😉
+
+👨‍💼 Yes, thank you Kellie!
+
+Now you just need to implement the `Counter` component using RSCs and server
+actions!
+
+This will involve adding a `'use server'` directive
+to <InlineFile file="./ui/counter.js" /> so the action can be referenced in the
+client. And then adding a `'use client'` directive
+to <InlineFile file="./ui/pending-form.js" /> so that code goes to the client
+and can be used to show pending state while the action is being processed.
+
+From there, <InlineFile file="./ui/counter.js" /> runs fully on the server so
+you can do whatever you need to do server-side to make it work.
+
+🦉 Take special note of your network code and where the boundaries are between
+server and client.

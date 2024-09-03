@@ -1,1 +1,128 @@
 # Early Web
+
+The early web was characterized by Multi-Page Applications (MPAs), where each
+user interaction typically resulted in a full page reload. Understanding this
+foundation is crucial for appreciating how web development and network
+management have evolved over time.
+
+In this exercise, we'll explore the fundamental aspects of MPAs:
+
+1. Server-side rendering of HTML
+2. Full page reloads for navigation
+3. Form submissions and server responses
+
+## Server-side rendering of HTML
+
+In an MPA, the server renders the HTML for each page. When a user navigates to a
+new page, the server sends the entire HTML document.
+
+## Full page reloads for navigation
+
+When a user navigates to a new page, the server sends the entire HTML document.
+
+## Form submissions and server responses
+
+When a user submits a form, the browser sends the form data to the server. The
+server processes the form data and sends a response back to the browser. The
+browser then reloads the entire page with the new HTML from the server.
+
+## Post -> Redirect -> Get
+
+The POST -> Redirect -> Get pattern is a common pattern in early web
+applications. It's a way to handle form submissions and prevent duplicate form
+submissions.
+
+You may have noticed issues using web applications where you submit a form and
+then try to refresh or navigate backward. You'll get a confirmation dialog from
+the browser asking if you want to resubmit the form. This is because the browser
+is trying to reload the page from the server, but the server doesn't know that
+the form has already been submitted.
+
+With the POST -> Redirect -> Get pattern, the server processes the form data and
+sends a redirect response to the browser. The browser then reloads the page from
+the server. So the browser gets a new HTML page, and the server doesn't have to
+deal with duplicate form submissions.
+
+## Example
+
+Here's an example of how this might work on the server side (using Node.js and
+Hono.js):
+
+```js
+import { serve } from '@hono/node-server'
+import { Hono } from 'hono'
+
+const PORT = process.env.PORT || 3000
+const app = new Hono()
+
+let message = ''
+
+app.get('/', (c) => {
+	return c.html(`
+		<!doctype html>
+		<html lang="en">
+			<head>
+				<meta charset="UTF-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<title>Early Web Example</title>
+			</head>
+			<body>
+				<h1>Welcome to the Early Web</h1>
+				<form action="/submit" method="POST">
+					<input type="text" id="messageInput" name="message" placeholder="Enter your message" />
+					<button type="submit">Submit</button>
+				</form>
+			</body>
+		</html>
+	`)
+})
+
+app.post('/submit', async (c) => {
+	const formData = await c.req.formData()
+	message = formData.get('message')
+	return c.redirect(`/message`)
+})
+
+app.get('/message', (c) => {
+	return c.html(`
+		<!doctype html>
+		<html lang="en">
+			<head>
+				<meta charset="UTF-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<title>Early Web Example</title>
+			</head>
+			<body>
+				<h1>Message submitted:</h1>
+				<p>${message}</p>
+				<p>Thank you for submitting the form!</p>
+				<a href="/">Go back to the homepage</a>
+			</body>
+		</html>
+	`)
+})
+
+const server = serve({ fetch: app.fetch, port: PORT }, (info) => {
+	console.log(`Server is running on http://localhost:${info.port}`)
+})
+```
+
+This example demonstrates:
+
+1. A simple HTML structure for a registration form
+2. The form submits data to the server using a POST request
+3. The server would process the form and return a new HTML page as a response
+
+Key points to note:
+
+1. Each user interaction (form submission) results in a full page reload
+2. The server is responsible for generating and sending complete HTML pages
+3. Network requests are handled implicitly by the browser (form submissions,
+   page navigation)
+
+In this exercise, you'll create your own MPA-style web page, exploring these
+concepts and understanding how they laid the groundwork for future web
+development paradigms.
+
+Let's dive in and experience web development as it was in the era of
+Multi-Page Applications!

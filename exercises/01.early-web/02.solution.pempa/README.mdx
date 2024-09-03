@@ -1,1 +1,16 @@
 # PEMPA
+
+👨‍💼 Great job! The user experience is much better now!
+
+Let's talk about the network related code we had to implement ourselves. Keep in
+mind that this is still technically an MPA, just with progressive enhancement.
+So we have the same characteristics as before, except we've now added a whole
+bunch of extra code for making and managing the network request both on the
+server and in the browser.
+
+Additionally, we now have two places where we're updating the UI: the server
+code and the client code. For our simple app this isn't a big deal, but in a
+real application this is a maintenance nightmare.
+
+This maintenance nightmare is what drove the evolution towards frameworks
+like React that manage the UI in a single place.

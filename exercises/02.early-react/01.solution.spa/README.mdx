@@ -1,1 +1,19 @@
 # SPA
+
+👨‍💼 Great work. We should be able to ship much faster and fewer bugs now that we
+don't have to duplicate UI logic between the server render and the client-side
+code.
+
+However, let's take a moment to look into the network management... Because it's
+not great.
+
+First, we've completely abandoned progressive enhancement. It's mostly fine
+because all our users have JavaScript enabled, but now JavaScript enables our
+experience rather than enhancing it which means we have to have a loading screen
+while the user waits for our JavaScript to load (before they could submit the
+form as soon as the HTML loaded).
+
+Secondly, we have a TON of code for managing the network request. What used to
+be handled nicely by the browser is now handled by our React code.
+
+If only there was a better way to manage network requests...

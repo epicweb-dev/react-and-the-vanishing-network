@@ -1,1 +1,43 @@
 # Early React
+
+In the early days of web development, Multi-Page Applications (MPAs) were the
+norm (they were really the only way to do it). Each user interaction typically
+required a full page reload, resulting in a slower, less responsive user
+experience. This approach had several drawbacks:
+
+1. Poor performance due to frequent page reloads
+2. Increased server load for generating entire pages
+3. Difficulty in maintaining complex user interfaces
+4. Inconsistent state management across pages
+5. Difficult with accessibility and focus management
+
+These challenges motivated the development of UI frameworks like React, which
+aimed to create more dynamic, responsive web applications.
+
+## Enter React
+
+React, introduced by Facebook in 2013, brought a paradigm shift in web
+development. It addressed many of the issues faced by MPAs by introducing:
+
+1. Component-based architecture
+2. Virtual DOM for efficient updates
+3. Declarative UI development
+4. Unidirectional data flow
+
+## Network Management in Early React
+
+In the early days of React, managing network requests was still a challenge:
+
+1. AJAX calls were typically handled using libraries like jQuery or the native
+   `XMLHttpRequest`
+2. Fetching data often occurred in component lifecycle methods (e.g.,
+   `componentDidMount`)
+3. Managing loading states and errors was manual and repetitive
+4. Caching and optimizing network requests required custom solutions
+
+Even with the introduction of hooks, using `useEffect` to fetch data was still
+challenging. It eliminated bugs (like forgetting to handle `componentDidUpdate`)
+but it introduced issues like infinite re-renders and hard-to-debug bugs.
+
+Developers had to carefully manage when and how data was fetched to ensure a
+smooth user experience while minimizing unnecessary network traffic.

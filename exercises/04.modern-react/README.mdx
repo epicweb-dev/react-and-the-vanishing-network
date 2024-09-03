@@ -1,1 +1,71 @@
 # Modern React
+
+Remix is a terrific framework, but it has one big downside. It's mixing
+compositional paradigms. You have nested routes and nested components.
+
+In Remix, we get a lot of benefit out of splitting data management from the UI.
+However, we are stuck with the nested route boundaries as the place where this
+happens.
+
+To work around this, we have the
+[Full Stack Components](https://www.epicweb.dev/full-stack-components) pattern.
+This pattern takes advantage of Remix's resource route feature which simply
+allows us to get an API endpoint at a route provided it does not have a
+`default` export. So instead we export a component with a name and then that
+component is wired up to the route where it appears:
+
+For a full example, check the blog post linked above, but here are the relevant
+bits from it:
+
+```tsx lines=24
+import { json, type LoaderFunctionArgs } from '@remix-run/node'
+import { useFetcher } from '@remix-run/react'
+import { searchCustomers } from '#app/models/customer.server.ts'
+import { requireUser } from '#app/session.server.ts'
+
+export async function loader({ request }: LoaderFunctionArgs) {
+	await requireUser(request)
+	const url = new URL(request.url)
+	const query = url.searchParams.get('query')
+	invariant(typeof query === 'string', 'query is required')
+	return json({
+		customers: await searchCustomers(query),
+	})
+}
+
+export function CustomerCombobox({ error }: { error?: string | null }) {
+	const customerFetcher = useFetcher<typeof loader>()
+	// ... other state and setup ...
+
+	// Example of how the loader is called in the UI
+	const handleInputChange = (changes) => {
+		customerFetcher.submit(
+			{ query: changes.inputValue ?? '' },
+			{ method: 'get', action: '/resources/customers' },
+		)
+	}
+
+	// ... rest of the component implementation ...
+}
+```
+
+One problem here is we have to manually wire up the fetcher to the loader.
+Another issue with this pattern which is not depicted here is if we wanted to
+preload any of this data, we would have to add it as a prop to the component
+and then anywhere it's rendered, find the nearest parent route and add the data
+to that route's loader.
+
+We can do better. With the right framework primitives, we can completely
+eliminate the network from our code.
+
+## React Server Components and Actions
+
+React has always been the best composition paradigm. Rather than routes being
+the composition boundary, we can use React Server Components to compose our
+application.
+
+Server components can manage loading our data and server actions can manage
+mutating it.
+
+Using RSCs and server actions, we can compose these different pieces together
+at any level and everything simply becomes a React component.
