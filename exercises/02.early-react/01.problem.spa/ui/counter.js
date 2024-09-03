@@ -8,13 +8,12 @@ import { createElement as h, useReducer, useEffect } from 'react'
 export function Counter() {
 	// 🐨 use useReducer with the counterReducer and initialState
 	const state = {
-		count: 0,
+		count: 'TODO',
 		loading: false,
 		error: null,
 	}
 
 	// 🐨 use useEffect to fetch the count on component mount
-
 	useEffect(() => {
 		// 🐨 create and call an async fetchCount function to fetch the count from the server
 		// 🦉 just ignore all the issues with race conditions etc. 🙄

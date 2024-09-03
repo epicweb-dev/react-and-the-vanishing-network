@@ -15,7 +15,7 @@ export async function action({ request }) {
 }
 
 export function Counter() {
-	const data = useLoaderData()
+	const data = useLoaderData('/counter')
 	const fetcher = useFetcher()
 
 	return h(
@@ -23,7 +23,7 @@ export function Counter() {
 		null,
 		h(
 			fetcher.Form,
-			{ method: 'POST' },
+			{ method: 'POST', action: '/counter' },
 			h('h1', null, 'Count: ' + data.count),
 			h(
 				'div',

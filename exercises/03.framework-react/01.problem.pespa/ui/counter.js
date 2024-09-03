@@ -17,7 +17,7 @@ export async function action({ request }) {
 }
 
 export function Counter() {
-	// 🐨 use the useLoaderData hook to get the data from the loader
+	// 🐨 use the useLoaderData('/counter') hook to get the data from the loader
 	const data = { count: 'TODO' }
 	// 🐨 use the useFetcher hook to get the fetcher from the framework
 	return h(
@@ -25,7 +25,7 @@ export function Counter() {
 		null,
 		h(
 			'form', // 🐨 switch this to a fetcher.Form
-			{ method: 'POST' },
+			{ method: 'POST', action: '/counter' },
 			h('h1', null, 'Count: ' + data.count),
 			h(
 				'div',

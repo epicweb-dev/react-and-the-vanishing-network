@@ -20,7 +20,7 @@ app.get('/', async (c) => {
 		<body>
 			<!-- 🐨 render the count here -->
 			<!-- 🐨 render the form here with the action set to /update-count and method POST -->
-			<!-- 🐨 render two buttons here, one for incrementing and one for decrementing the count (use the name "change" and value of -1 or 1) -->
+			<!-- 🐨 render two submit buttons here, one for incrementing and one for decrementing the count (use the name "change" and value of -1 or 1) -->
 		</body>
 		</html>
 	`
