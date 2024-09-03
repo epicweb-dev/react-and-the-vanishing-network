@@ -21,8 +21,10 @@ app.get('/', async (c) => {
 		<body>
 			<h1 id="count">Count: ${count}</h1>
 			<form id="counter-form" method="POST" action="/update-count">
-				<button type="submit" name="change" value="-1">Decrement</button>
-				<button type="submit" name="change" value="1">Increment</button>
+				<div id="counter-buttons">
+					<button type="submit" name="change" value="-1">Decrement</button>
+					<button type="submit" name="change" value="1">Increment</button>
+				</div>
 			</form>
 			<script src="/ui/index.js" type="module"></script>
 		</body>
