@@ -20,14 +20,15 @@ app.get('/', async (c) => {
 			<title>PEMPA Counter</title>
 		</head>
 		<body>
-			<!-- 🐨 add an id to the h1 -->
+			<!-- 🐨 add a "count" id to the h1 -->
 			<h1>Count: ${count}</h1>
-			<!-- 🐨 add an id to the form -->
+			<!-- 🐨 add a "counter-form" id to the form -->
 			<form action="/update-count" method="POST">
+				<!-- 🐨 wrap these buttons in a div with a class "counter-buttons" so we can style them together -->
 				<button type="submit" name="change" value="-1">Decrement</button>
 				<button type="submit" name="change" value="1">Increment</button>
 			</form>
-			<!-- 🐨 add a script module for ui/index.js -->
+			<!-- 🐨 add a module script for ui/index.js -->
 		</body>
 		</html>
 	`
@@ -37,8 +38,9 @@ app.get('/', async (c) => {
 app.post('/update-count', async (c) => {
 	const formData = await c.req.formData()
 	const change = Number(formData.get('change'))
+	// 🐨 get the updated count from this call:
 	await db.changeCount(change)
-	// 🐨 if the request accept header is expecting html, then do this redirect
+	// 🐨 if the c.req.header('accept') includes text/html, then do this redirect
 	return c.redirect('/')
 	// 🐨 otherwise, return a json response with the new count
 })

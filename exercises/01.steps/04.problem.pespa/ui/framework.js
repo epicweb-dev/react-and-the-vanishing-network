@@ -72,13 +72,12 @@ export function useLoaderData() {
 	return framework.data
 }
 
-export const server = {
-	handleLoaderRequest: async (request) => {
-		const counter = await import('./counter.js')
-		return counter.server.loader()
-	},
-	handleActionRequest: async (request) => {
-		const counter = await import('./counter.js')
-		return counter.server.action({ request })
-	},
+export async function handleLoaderRequest(request) {
+	const counter = await import('./counter.js')
+	return counter.loader()
+}
+
+export async function handleActionRequest(request) {
+	const counter = await import('./counter.js')
+	return counter.action({ request })
 }

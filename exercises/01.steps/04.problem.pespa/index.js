@@ -22,12 +22,12 @@ app.use(
 )
 
 app.get('/data', async (c) => {
-	const data = await framework.server.handleLoaderRequest(c.req)
+	const data = await framework.handleLoaderRequest(c.req)
 	return c.json(data)
 })
 
 app.get('/*', async (c) => {
-	const initialData = await framework.server.handleLoaderRequest(c.req)
+	const initialData = await framework.handleLoaderRequest(c.req)
 	const appHtml = renderToStaticMarkup(
 		h(framework.FrameworkProvider, { initialData }, h(Counter)),
 	)
@@ -59,7 +59,7 @@ app.get('/*', async (c) => {
 })
 
 app.post('/*', async (c) => {
-	const response = await framework.server.handleActionRequest(c.req)
+	const response = await framework.handleActionRequest(c.req)
 
 	if (c.req.header('Accept')?.includes('text/html')) {
 		return c.redirect(c.req.url)

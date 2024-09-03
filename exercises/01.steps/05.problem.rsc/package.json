@@ -6,7 +6,7 @@
   "description": "Super simple implementation of RSCs with minimal deps",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch ./index.js",
+    "dev": "node --watch-path=./ui --watch-path=./rsc --watch ./index.js",
     "start": "node ./index.js"
   },
   "keywords": [],

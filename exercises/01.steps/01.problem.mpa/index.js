@@ -29,7 +29,7 @@ app.get('/', async (c) => {
 
 // 🐨 add a POST route for /update-count
 // 🐨 get the form data from the request
-// 🐨 get the change value from the form data
+// 🐨 get the change value from the form data (and convert it to a number)
 // 🐨 change the count with db.changeCount(change)
 // 🐨 redirect to '/' (POST -> REDIRECT -> GET)
 
