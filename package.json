@@ -5,6 +5,11 @@
     "title": "React and the Vanishing Network 🧙",
     "subtitle": "A step-by-step walk through the history of web app architecture",
     "githubRepo": "https://github.com/epicweb-dev/react-and-the-vanishing-network",
+    "product": {
+      "displayName": "EpicReact.dev",
+      "displayNameShort": "EpicReact",
+      "logo": "/logo.svg"
+    },
     "instructor": {
       "name": "Kent C. Dodds",
       "avatar": "/images/instructor.png",
