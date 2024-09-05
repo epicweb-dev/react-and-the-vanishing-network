@@ -1,11 +1,5 @@
 import { createElement as h, useReducer, useEffect } from 'react'
 
-const initialState = {
-	count: null,
-	loading: true,
-	error: null,
-}
-
 function counterReducer(state, action) {
 	switch (action.type) {
 		case 'FETCH_START':
@@ -27,7 +21,11 @@ function counterReducer(state, action) {
 }
 
 export function Counter() {
-	const [state, dispatch] = useReducer(counterReducer, initialState)
+	const [state, dispatch] = useReducer(counterReducer, {
+		count: null,
+		loading: true,
+		error: null,
+	})
 
 	useEffect(() => {
 		async function fetchCount() {

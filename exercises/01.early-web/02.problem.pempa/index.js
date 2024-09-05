@@ -1,6 +1,5 @@
 import { serve } from '@hono/node-server'
-// 💰 gonna need this for static files
-// import { serveStatic } from '@hono/node-server/serve-static'
+import { serveStatic } from '@hono/node-server/serve-static'
 import closeWithGrace from 'close-with-grace'
 import { Hono } from 'hono'
 import * as db from './db.js'

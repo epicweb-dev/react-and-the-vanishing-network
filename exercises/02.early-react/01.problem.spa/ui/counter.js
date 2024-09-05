@@ -1,17 +1,17 @@
 import { createElement as h, useReducer, useEffect } from 'react'
 
-// 🐨 create the initial state with count (null), loading, and error
-
-// 🐨 create the counterReducer for handling action types "FETCH_START", "UPDATE_START", "FETCH_SUCCESS", "UPDATE_SUCCESS", "FETCH_ERROR", "UPDATE_ERROR"
-// 🦉 don't forget to handle an incorrect action type!
+function countReducer(state, action) {
+	// 🐨 handle action types for "FETCH_START"/"UPDATE_START", "FETCH_SUCCESS"/"UPDATE_SUCCESS", and "FETCH_ERROR"/"UPDATE_ERROR"
+	// 🦉 don't forget to throw an error on an incorrect action type!
+	return state
+}
 
 export function Counter() {
-	// 🐨 use useReducer with the counterReducer and initialState
-	const state = {
-		count: 'TODO',
-		loading: false,
+	const [state, dispatch] = useReducer(countReducer, {
+		count: null,
+		loading: true,
 		error: null,
-	}
+	})
 
 	// 🐨 use useEffect to fetch the count on component mount
 	useEffect(() => {
@@ -30,6 +30,7 @@ export function Counter() {
 		'div',
 		null,
 		h('h1', null, 'Count: ' + state.count),
+		// 🦉 notice we've deleted the form 😭
 		h(
 			'div',
 			{ style: { opacity: state.loading ? 0.6 : 1 } },
