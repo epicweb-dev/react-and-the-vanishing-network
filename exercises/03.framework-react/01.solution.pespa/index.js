@@ -35,7 +35,8 @@ app.get('/*', async (c) => {
 		<!doctype html>
 		<html lang="en">
 			<head>
-				<meta charset="UTF-8" />
+				<meta charset="UTF-8">
+				<meta name="color-scheme" content="dark light">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				<title>PESPA Counter</title>
 				<script type="importmap">

@@ -17,6 +17,7 @@ app.get('/', async (c) => {
 		<html lang="en">
 		<head>
 			<meta charset="UTF-8">
+			<meta name="color-scheme" content="dark light">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title>PEMPA Counter</title>
 		</head>
