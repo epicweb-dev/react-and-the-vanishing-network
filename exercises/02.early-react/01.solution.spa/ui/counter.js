@@ -1,6 +1,6 @@
 import { createElement as h, useReducer, useEffect } from 'react'
 
-function counterReducer(state, action) {
+function countReducer(state, action) {
 	switch (action.type) {
 		case 'FETCH_START':
 		case 'UPDATE_START': {
@@ -21,7 +21,7 @@ function counterReducer(state, action) {
 }
 
 export function Counter() {
-	const [state, dispatch] = useReducer(counterReducer, {
+	const [state, dispatch] = useReducer(countReducer, {
 		count: null,
 		loading: true,
 		error: null,
