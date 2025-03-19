@@ -15,7 +15,7 @@ export async function action({ request }) {
 }
 
 export function Counter() {
-	const data = useLoaderData('/counter')
+	const data = useLoaderData()
 	const fetcher = useFetcher()
 
 	return h(

@@ -17,7 +17,7 @@ export async function action({ request }) {
 }
 
 export function Counter() {
-	// 🐨 use the useLoaderData('/counter') hook to get the data from the loader
+	// 🐨 use the useLoaderData() hook to get the data from the loader
 	const data = { count: 'TODO' }
 	// 🐨 use the useFetcher hook to get the fetcher from the framework (no action path necessary)
 	return h(
