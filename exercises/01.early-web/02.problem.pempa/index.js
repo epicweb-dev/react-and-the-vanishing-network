@@ -23,11 +23,11 @@ app.get('/', async (c) => {
 			<h1>Count: ${count}</h1>
 			<!-- 🐨 add a "counter-form" id to the form -->
 			<form action="/update-count" method="POST">
-				<!-- 🐨 wrap these buttons in a div with a class "counter-buttons" so we can style them together -->
+				<!-- 🐨 wrap these buttons in a div with an id of "counter-buttons" so we can style them together -->
 				<button type="submit" name="change" value="-1">Decrement</button>
 				<button type="submit" name="change" value="1">Increment</button>
 			</form>
-			<!-- 🐨 add a module script for ui/index.js -->
+			<!-- 🐨 add a module script for /ui/index.js -->
 		</body>
 		</html>
 	`
