@@ -1,3 +1,4 @@
+import fs from 'node:fs/promises'
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import closeWithGrace from 'close-with-grace'

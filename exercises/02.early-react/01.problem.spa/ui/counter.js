@@ -19,7 +19,8 @@ export function Counter() {
 		// 🦉 just ignore all the issues with race conditions etc. 🙄
 	}, [])
 
-	// 🐨 create an updateCount function that accepts a change to update the count on the server
+	// 🐨 replace this updateCount function that accepts a change to update the count on the server
+	const updateCount = () => {}
 	// 🦉 make certain to send the change as a JSON body with a content-type of application/json
 	// 🐨 the JSON response includes the new count, which we should update the state with
 
