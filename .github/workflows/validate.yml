@@ -63,7 +63,9 @@ jobs:
           done
 
       - name: ʦ TypeScript
-        run: npm run typecheck
+        # Not every workshop defines this optional validation hook, especially
+        # when SKIP_PLAYGROUND leaves the generated install without a playground.
+        run: npm run typecheck --if-present
         working-directory: ./workshop
 
       - name: ⬣ Lint
