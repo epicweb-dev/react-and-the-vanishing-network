@@ -53,7 +53,9 @@ await updatePkgNames()
 async function updatePkgNames() {
 	for (const file of appsWithPkgJson) {
 		const pkgjsonPath = path.join(file, 'package.json')
-		const pkg = JSON.parse(await fs.promises.readFile(pkgjsonPath, 'utf8'))
+		const pkg = /** @type {Record<string, unknown>} */ (
+			JSON.parse(await fs.promises.readFile(pkgjsonPath, 'utf8'))
+		)
 		pkg.name = relativeToWorkshopRoot(file).replace(/\\|\//g, '_')
 		const written = await writeIfNeeded(
 			pkgjsonPath,

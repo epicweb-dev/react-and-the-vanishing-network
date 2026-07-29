@@ -27,6 +27,7 @@
     "test:e2e:run": "pkgmgr run test:e2e:run --silent --prefix playground",
     "setup": "pkgmgrx epicshop setup",
     "setup:custom": "node ./epicshop/setup-custom.js",
+    "typecheck": "tsc --noEmit --allowJs --checkJs --module nodenext --moduleResolution nodenext --target es2022 epicshop/setup-custom.js epicshop/fix.js epicshop/fix-watch.js",
     "lint": "eslint .",
     "format": "prettier --write .",
     "validate:all": "npm-run-all --parallel --print-label --print-name --continue-on-error test:all lint"
